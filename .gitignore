@@ -8,3 +8,6 @@
 .settings/
 target/
 bin/
+/cn=gwnfw01-alfticvagov_o=va_c=us.crt
+/cn=va-internal-s2-rca1-v1_dc=#16027661_dc=#1603676f76.crt
+/cn=wwwgooglecom.crt
