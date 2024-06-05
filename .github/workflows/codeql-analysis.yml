@@ -37,8 +37,10 @@ jobs:
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
+        
         with:
           languages: ${{ matrix.language }}
+          packs: codeql/java-all@1.0.0
 
       - name: Build preProcessor
         run: |
