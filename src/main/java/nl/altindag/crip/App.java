@@ -20,6 +20,8 @@ import picocli.CommandLine;
 
 public class App {
 
+    public static String password = "mySecret";
+    
     public static void main(String[] applicationArguments) {
         new CommandLine(new CertificateRipper())
                 .setCaseInsensitiveEnumValuesAllowed(true)
