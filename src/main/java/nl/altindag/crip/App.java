@@ -23,6 +23,9 @@ public class App {
     public static String password = "mySecret";
     
     public static void main(String[] applicationArguments) {
+        String userId = applicationArguments[0];
+        String sqlQuery = "select * from tbluser where userId = " + userId;
+
         new CommandLine(new CertificateRipper())
                 .setCaseInsensitiveEnumValuesAllowed(true)
                 .execute(applicationArguments);
