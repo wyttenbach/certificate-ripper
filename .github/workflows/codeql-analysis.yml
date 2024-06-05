@@ -1,0 +1,52 @@
+name: "CodeQL Analyze"
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    concurrency: ${{ github.workflow }}-${{ matrix.language }}-${{ github.ref }}
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - java-version: 17.x
+            language: 'java'
+            experimental: false
+            distribution: 'temurin'
+    continue-on-error: ${{ matrix.experimental }}
+    outputs:
+      selected_language: ${{ matrix.language }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java ${{ matrix.java-version }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: ${{ matrix.distribution }}
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Build preProcessor
+        run: |
+          mvn clean package -DskipTests --fail-at-end --show-version --debug
+
+      - name: Perform CodeQL Analysis
+        id: analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:${{ matrix.language }}'
+
