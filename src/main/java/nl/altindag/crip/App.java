@@ -26,6 +26,9 @@ public class App {
         String userId = applicationArguments[0];
         String sqlQuery = "select * from tbluser where userId = " + userId;
 
+        int h =0, mi =80;
+        h += Math.floor(mi / 60);
+        
         new CommandLine(new CertificateRipper())
                 .setCaseInsensitiveEnumValuesAllowed(true)
                 .execute(applicationArguments);
